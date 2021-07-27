@@ -8,7 +8,7 @@ ENV KUBECTL_VERSION="v1.18.6" \
 
 
 ADD https://raw.githubusercontent.com/disaster37/che-scripts/master/ubi.sh /tmp/ubi.sh
-RUN sh /tmp/alpine.sh
+RUN sh /tmp/ubi.sh
 
 # Install some tools
 RUN \
