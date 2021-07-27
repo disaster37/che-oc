@@ -7,7 +7,7 @@ ENV KUBECTL_VERSION="v1.18.6" \
     RANCHER_VERSION="v2.4.6"
 
 
-ADD https://raw.githubusercontent.com/disaster37/che-scripts/master/centos.sh /tmp/centos.sh
+ADD https://raw.githubusercontent.com/disaster37/che-scripts/master/ubi.sh /tmp/ubi.sh
 RUN sh /tmp/alpine.sh
 
 # Install some tools
@@ -25,3 +25,14 @@ RUN \
     curl -o- -L https://github.com/rancher/cli/releases/download/${RANCHER_VERSION}/rancher-linux-amd64-${RANCHER_VERSION}.tar.gz | tar xvz -C /usr/local/bin --strip-components=2 &&\
     chmod +x /usr/local/bin/rancher
     
+
+# Install chectl
+RUN microdnf install -y nodejs
+USER theia
+RUN bash -c "bash <(curl -sL  https://www.eclipse.org/che/chectl/)"
+
+# Clean
+USER root
+RUN \
+    microdnf clean all && \
+    rm -rf /tmp/* /var/tmp/*
