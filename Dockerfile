@@ -1,10 +1,11 @@
 
 FROM redhat/ubi8-minimal:8.4
 
-ENV KUBECTL_VERSION="v1.18.6" \
-    OC_VERSION="4.3.3" \
+ENV \ 
+    KUBECTL_VERSION="v1.18.20" \
+    OC_VERSION="4.8.2" \
     HELM_VERSION="v3.6.3" \
-    RANCHER_VERSION="v2.4.6"
+    RANCHER_VERSION="v2.4.11"
 
 
 ADD https://raw.githubusercontent.com/disaster37/che-scripts/master/ubi.sh /tmp/ubi.sh
@@ -23,16 +24,17 @@ RUN \
     chmod +x /usr/local/bin/helm &&\
     echo "Install rancher" &&\
     curl -o- -L https://github.com/rancher/cli/releases/download/${RANCHER_VERSION}/rancher-linux-amd64-${RANCHER_VERSION}.tar.gz | tar xvz -C /usr/local/bin --strip-components=2 &&\
-    chmod +x /usr/local/bin/rancher
+    chmod +x /usr/local/bin/rancher &&\
+    echo " Install buildkit for kubectl" &&\
+    curl -L  https://github.com/vmware-tanzu/buildkit-cli-for-kubectl/releases/download/v0.1.3/kubectl-buildkit-0.1.3-1.el7.x86_64.rpm -o /tmp/kubectl-buildkit.rpm &&\
+    rpm -i /tmp/kubectl-buildkit.rpm
     
 
 # Install chectl
 RUN microdnf install -y nodejs
-USER theia
-RUN bash -c "bash <(curl -sL  https://www.eclipse.org/che/chectl/)"
+RUN cd /home/theia && bash -c "bash <(curl -sL  https://www.eclipse.org/che/chectl/)"
 
 # Clean
-USER root
 RUN \
     microdnf clean all && \
     rm -rf /tmp/* /var/tmp/*
