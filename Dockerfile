@@ -2,7 +2,7 @@
 FROM webcenter/che-ubi:8.4
 
 ENV \ 
-    KUBECTL_VERSION="v1.19.20" \
+    KUBECTL_VERSION="v1.19.13" \
     OC_VERSION="4.8.2" \
     HELM_VERSION="v3.6.3"
 
