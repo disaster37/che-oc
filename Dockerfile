@@ -1,5 +1,5 @@
 
-FROM webcenter/che-ubi:8.4
+FROM quay.io/webcenter/che-ubi:latest
 
 ENV \ 
     KUBECTL_VERSION="v1.19.13" \
