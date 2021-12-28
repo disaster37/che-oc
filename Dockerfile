@@ -4,10 +4,10 @@ FROM quay.io/webcenter/che-ubi:latest
 ENV \ 
     KUBECTL_VERSION="v1.19.13" \
     OC_VERSION="4.8.2" \
-    HELM_VERSION="v3.6.3" \
-    VAULT_VERSION="1.7.3" \
-    TERRAFORM_VERSION="1.0.3" \
-    TERRAGRUNT_VERSION="v0.31.1"
+    HELM_VERSION="v3.7.2" \
+    VAULT_VERSION="1.9.2" \
+    TERRAFORM_VERSION="1.1.2" \
+    TERRAGRUNT_VERSION="v0.35.16"
 
 
 # Install some tools
