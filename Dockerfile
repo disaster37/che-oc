@@ -3,11 +3,12 @@ FROM quay.io/webcenter/che-ubi:latest
 
 ENV \ 
     KUBECTL_VERSION="v1.21.7" \
-    OC_VERSION="4.8.2" \
+    OC_VERSION="4.9.29" \
     HELM_VERSION="v3.7.2" \
     VAULT_VERSION="1.9.2" \
     TERRAFORM_VERSION="1.1.2" \
-    TERRAGRUNT_VERSION="v0.35.16"
+    TERRAGRUNT_VERSION="v0.35.16" \
+    DAGGER_VERSION="v0.2.7"
 
 
 # Install some tools
@@ -33,7 +34,16 @@ RUN \
     chmod +x /usr/bin/terraform &&\
     echo "Install terragrunt" &&\
     curl -L https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 -o /usr/bin/terragrunt &&\
-    chmod +x /usr/bin/terragrunt
+    chmod +x /usr/bin/terragrunt &&\
+    echo "Install dagger" &&\
+    curl -o- -L https://github.com/dagger/dagger/releases/download/${DAGGER_VERSION}/dagger_${DAGGER_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=1 &&\
+    chmod +x /usr/local/bin/dagger
+
+# Install docker-cli / buildx
+RUN \
+    microdnf install -y yum-utils &&\
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&\
+    microdnf install -y docker-ce-cli
 
 # Clean
 RUN \
