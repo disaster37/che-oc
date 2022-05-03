@@ -39,11 +39,11 @@ RUN \
     curl -o- -L https://github.com/dagger/dagger/releases/download/${DAGGER_VERSION}/dagger_${DAGGER_VERSION}_linux_amd64.tar.gz | tar xvz -C /usr/local/bin --strip-components=0 &&\
     chmod +x /usr/local/bin/dagger
 
-# Install docker-cli / buildx
+# Install some extra tools
 RUN \
     microdnf install -y yum-utils &&\
     yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&\
-    microdnf install -y docker-ce-cli
+    microdnf install -y docker-ce-cli procps-ng
 
 # Clean
 RUN \
