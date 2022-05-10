@@ -8,7 +8,7 @@ ENV \
     VAULT_VERSION="1.9.2" \
     TERRAFORM_VERSION="1.1.2" \
     TERRAGRUNT_VERSION="v0.35.16" \
-    DAGGER_VERSION="v0.2.8"
+    DAGGER_VERSION="v0.2.9"
 
 
 # Install some tools
